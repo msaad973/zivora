@@ -15,9 +15,9 @@ export default function ContactPage() {
   };
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="pt-24 pb-20 px-6 max-w-4xl mx-auto">
+      <main className="flex-1 pt-24 pb-20 px-6 max-w-4xl mx-auto w-full">
         <div className="text-center mb-16">
           <p className="text-[#b8960c] text-xs tracking-[0.4em] uppercase mb-3">Get In Touch</p>
           <h1 className="font-playfair text-4xl font-light">Contact Us</h1>
@@ -75,6 +75,6 @@ export default function ContactPage() {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

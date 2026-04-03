@@ -71,7 +71,7 @@ export default function AdminProductsPage() {
                 <td className="p-4">
                   <span className={`${tw.textGold} text-xs tracking-widest uppercase`}>{p.category}</span>
                 </td>
-                <td className={`p-4 ${tw.textGoldLight}`}>PKR {p.price.toLocaleString()}</td>
+                <td className={`p-4 ${tw.textGoldLight}`}>Rs {p.price.toLocaleString()}</td>
                 <td className="p-4">
                   <div className="flex gap-3">
                     <button

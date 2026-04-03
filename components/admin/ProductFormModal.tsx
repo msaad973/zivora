@@ -137,7 +137,7 @@ export default function ProductFormModal({ product, onClose, onSaved }: Props) {
 
           {/* Price */}
           <div>
-            <label className={tw.labelDark}>Price (PKR)</label>
+            <label className={tw.labelDark}>Price (Rs)</label>
             <input
               type="number"
               value={form.price}

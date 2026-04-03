@@ -1,26 +1,37 @@
 "use client";
-import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
-  const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-
+  const [checking, setChecking] = useState(true);
+  const [authed, setAuthed] = useState(false);
   const isLoginPage = pathname === "/admin/login";
 
   useEffect(() => {
-    if (status === "unauthenticated" && !isLoginPage) {
-      router.push("/admin/login");
-    }
-  }, [status, router, isLoginPage]);
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        setAuthed(true);
+      } else if (!isLoginPage) {
+        router.push("/admin/login");
+      }
+      setChecking(false);
+    });
 
-  // Always render the login page as-is
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session && !isLoginPage) router.push("/admin/login");
+      setAuthed(!!session);
+    });
+
+    return () => listener.subscription.unsubscribe();
+  }, [isLoginPage, router]);
+
   if (isLoginPage) return <>{children}</>;
 
-  if (status === "loading") {
+  if (checking) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
         <div className="w-10 h-10 border-2 border-[#b8960c] border-t-transparent rounded-full animate-spin" />
@@ -28,7 +39,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
     );
   }
 
-  if (!session) return null;
+  if (!authed) return null;
 
   return (
     <div className="flex min-h-screen bg-[#0f0f0f]">

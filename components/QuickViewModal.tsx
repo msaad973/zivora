@@ -62,7 +62,7 @@ export default function QuickViewModal({ product, onClose }: { product: Product;
             </span>
             <h2 className="font-playfair text-2xl mb-3">{product.title}</h2>
             <p className={`${tw.textGold} text-xl font-semibold mb-6`}>
-              PKR {product.price.toLocaleString()}
+              Rs {product.price.toLocaleString()}
             </p>
 
             {/* Size selector */}

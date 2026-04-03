@@ -26,9 +26,9 @@ export default function CartPage() {
   }
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="pt-24 pb-20 px-6 max-w-6xl mx-auto">
+      <main className="flex-1 pt-24 pb-20 px-6 max-w-6xl mx-auto w-full">
         <div className="text-center mb-12">
           <h1 className="font-playfair text-4xl font-light">Shopping Cart</h1>
         </div>
@@ -54,7 +54,7 @@ export default function CartPage() {
                   <div className="flex-1">
                     <h3 className="font-playfair text-base mb-1">{item.title}</h3>
                     <p className="text-xs text-gray-400 mb-1">Size: {item.size}</p>
-                    <p className={`${tw.textGold} font-semibold`}>PKR {item.price.toLocaleString()}</p>
+                    <p className={`${tw.textGold} font-semibold`}>Rs {item.price.toLocaleString()}</p>
                     <div className="flex items-center gap-3 mt-3">
                       <div className="flex items-center border border-gray-200">
                         <button
@@ -76,7 +76,7 @@ export default function CartPage() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-sm">PKR {(item.price * item.quantity).toLocaleString()}</p>
+                    <p className="font-semibold text-sm">Rs {(item.price * item.quantity).toLocaleString()}</p>
                   </div>
                 </Card>
               </motion.div>
@@ -90,14 +90,14 @@ export default function CartPage() {
               {items.map((item) => (
                 <div key={`${item.productId}-${item.size}`} className="flex justify-between text-white/60">
                   <span>{item.title} × {item.quantity}</span>
-                  <span>PKR {(item.price * item.quantity).toLocaleString()}</span>
+                  <span>Rs {(item.price * item.quantity).toLocaleString()}</span>
                 </div>
               ))}
             </div>
             <div className="border-t border-white/10 pt-4 mb-8">
               <div className="flex justify-between font-semibold">
                 <span>Total</span>
-                <span className={tw.textGoldLight}>PKR {total().toLocaleString()}</span>
+                <span className={tw.textGoldLight}>Rs {total().toLocaleString()}</span>
               </div>
             </div>
             <Button href="/checkout" variant="primary" size="lg" className="w-full">
@@ -107,6 +107,6 @@ export default function CartPage() {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

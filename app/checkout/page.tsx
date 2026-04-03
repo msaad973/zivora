@@ -49,9 +49,9 @@ export default function CheckoutPage() {
   };
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="pt-24 pb-20 px-6 max-w-5xl mx-auto">
+      <main className="flex-1 pt-24 pb-20 px-6 max-w-5xl mx-auto w-full">
         <div className="text-center mb-12">
           <h1 className="font-playfair text-4xl font-light">Checkout</h1>
         </div>
@@ -108,20 +108,20 @@ export default function CheckoutPage() {
                     {item.title}{" "}
                     <span className="text-gray-400">({item.size}) × {item.quantity}</span>
                   </span>
-                  <span className="font-medium">PKR {(item.price * item.quantity).toLocaleString()}</span>
+                  <span className="font-medium">Rs {(item.price * item.quantity).toLocaleString()}</span>
                 </div>
               ))}
             </div>
             <div className="border-t border-gray-200 pt-4">
               <div className="flex justify-between font-semibold">
                 <span>Total</span>
-                <span className={`${tw.textGold} text-lg`}>PKR {total().toLocaleString()}</span>
+                <span className={`${tw.textGold} text-lg`}>Rs {total().toLocaleString()}</span>
               </div>
             </div>
           </div>
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

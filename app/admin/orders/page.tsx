@@ -56,7 +56,7 @@ export default function AdminOrdersPage() {
                 >
                   <td className="p-4 text-white">{order.customerName}</td>
                   <td className="p-4">{order.city}</td>
-                  <td className={`p-4 ${tw.textGoldLight}`}>PKR {order.total.toLocaleString()}</td>
+                  <td className={`p-4 ${tw.textGoldLight}`}>Rs {order.total.toLocaleString()}</td>
                   <td className="p-4">
                     <OrderStatusBadge status={order.status} />
                   </td>
@@ -99,12 +99,12 @@ export default function AdminOrdersPage() {
               {selected.items?.map((item: any, i: number) => (
                 <div key={i} className="flex justify-between text-sm text-white/60 py-1">
                   <span>{item.title} × {item.quantity}</span>
-                  <span>PKR {(item.price * item.quantity).toLocaleString()}</span>
+                  <span>Rs {(item.price * item.quantity).toLocaleString()}</span>
                 </div>
               ))}
               <div className={`flex justify-between font-semibold ${tw.textGoldLight} mt-3 pt-3 border-t border-white/5`}>
                 <span>Total</span>
-                <span>PKR {selected.total.toLocaleString()}</span>
+                <span>Rs {selected.total.toLocaleString()}</span>
               </div>
             </div>
 

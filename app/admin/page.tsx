@@ -12,7 +12,7 @@ import { tw } from "@/lib/tokens";
 const STAT_CARDS = (stats: { products: number; orders: number; revenue: number; pending: number }) => [
   { label: "Total Products", value: stats.products, icon: FiPackage, color: "text-blue-400" },
   { label: "Total Orders", value: stats.orders, icon: FiShoppingCart, color: "text-green-400" },
-  { label: "Revenue (PKR)", value: stats.revenue.toLocaleString(), icon: FiDollarSign, color: tw.textGoldLight },
+  { label: "Revenue (Rs)", value: stats.revenue.toLocaleString(), icon: FiDollarSign, color: tw.textGoldLight },
   { label: "Pending Orders", value: stats.pending, icon: FiClock, color: "text-orange-400" },
 ];
 
@@ -103,7 +103,7 @@ export default function AdminDashboard() {
                 <tr key={order._id} className="text-white/60">
                   <td className="py-3">{order.customerName}</td>
                   <td className="py-3">{order.city}</td>
-                  <td className={`py-3 ${tw.textGoldLight}`}>PKR {order.total.toLocaleString()}</td>
+                  <td className={`py-3 ${tw.textGoldLight}`}>Rs {order.total.toLocaleString()}</td>
                   <td className="py-3">
                     <OrderStatusBadge status={order.status} />
                   </td>
