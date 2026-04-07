@@ -26,7 +26,7 @@ export default function ProductGrid({ type, category, limit }: Props) {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
         {Array.from({ length: limit || 4 }).map((_, i) => (
           <div key={i} className="aspect-[3/4] bg-[#f5f0e8] animate-pulse rounded-sm" />
         ))}
@@ -36,7 +36,7 @@ export default function ProductGrid({ type, category, limit }: Props) {
 
   if (!products.length) {
     return (
-      <div className="text-center py-20 text-gray-400">
+      <div className="text-center py-24 text-gray-400">
         <p className="font-playfair text-xl">No products found</p>
       </div>
     );
@@ -47,8 +47,8 @@ export default function ProductGrid({ type, category, limit }: Props) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+      variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6"
     >
       {products.map((p) => (
         <ProductCard key={p._id} product={p} />

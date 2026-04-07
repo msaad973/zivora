@@ -1,92 +1,135 @@
 "use client";
+import { useRef } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import Button from "./ui/Button";
-import { tw } from "@/lib/tokens";
+import { ArrowRight } from "lucide-react";
+
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.18, delayChildren: 0.4 } },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 36 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  },
+};
 
 export default function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   return (
-    <section className={`relative h-screen w-full overflow-hidden ${tw.bgBlack}`}>
-      {/* Background — video with image fallback */}
-      <Image
-        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80&auto=format"
-        alt="Hero background"
-        fill
-        priority
-        className="object-cover opacity-50"
-        sizes="100vw"
-      />
+    <section className="relative h-screen min-h-[640px] w-full overflow-hidden bg-[#0a0a0a]">
+
+      {/* Background video */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-50"
+        className="absolute inset-0 w-full h-full object-cover"
+        aria-hidden="true"
       >
         <source src="/hero-video.mp4" type="video/mp4" />
       </video>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
+      {/* Fallback image */}
+      <Image
+        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80&auto=format"
+        alt=""
+        fill
+        priority
+        className="object-cover -z-10"
+        sizes="100vw"
+        aria-hidden="true"
+      />
+
+      {/* Gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-black/80 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-black/25 z-10" />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="relative z-20 h-full flex flex-col items-center justify-center text-center px-6 md:px-12"
+      >
+        {/* Eyebrow */}
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className={`${tw.textGoldLight} text-xs tracking-[0.4em] uppercase mb-6 font-light`}
+          variants={fadeUp}
+          className="text-[#d4af37] text-[10px] md:text-[11px] tracking-[0.5em] uppercase font-light mb-6"
         >
-          New Collection 2026
+          New Collection &nbsp;·&nbsp; 2026
         </motion.p>
 
+        {/* Brand name */}
         <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="font-playfair text-5xl md:text-7xl lg:text-8xl text-white font-light leading-tight mb-6"
+          variants={fadeUp}
+          className="font-playfair text-[72px] md:text-[110px] lg:text-[140px] text-white font-light leading-none tracking-[0.12em] mb-5"
         >
-          Timeless
-          <br />
-          <span className="italic gold-text">Elegance</span>
+          ZIVORA
         </motion.h1>
 
+        {/* Gold divider */}
+        <motion.div variants={fadeUp} className="flex items-center gap-4 mb-7">
+          <span className="h-px w-12 md:w-20 bg-gradient-to-r from-transparent to-[#d4af37]" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
+          <span className="h-px w-12 md:w-20 bg-gradient-to-l from-transparent to-[#d4af37]" />
+        </motion.div>
+
+        {/* Tagline */}
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-white/60 text-sm md:text-base tracking-widest max-w-md mb-10 font-light"
+          variants={fadeUp}
+          className="font-playfair italic text-white/65 text-lg md:text-2xl lg:text-3xl tracking-widest mb-12 font-light"
         >
-          Luxury Pakistani fashion crafted for the modern woman
+          Wear Your Grace
         </motion.p>
 
+        {/* CTA buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="flex gap-4 flex-wrap justify-center"
+          variants={fadeUp}
+          className="flex flex-col sm:flex-row items-center gap-4"
         >
-          <Button href="/shop" variant="primary" size="lg" className="hover:scale-105">
-            Shop Now
-          </Button>
-          <Button href="/about" variant="ghost" size="lg">
-            Our Story
-          </Button>
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+            <Link
+              href="/shop"
+              className="inline-flex items-center gap-2.5 bg-[#b8960c] hover:bg-[#d4af37] text-black text-[11px] tracking-[0.3em] uppercase font-semibold px-10 py-4 transition-all duration-300 shadow-[0_0_30px_rgba(184,150,12,0.35)] hover:shadow-[0_0_45px_rgba(212,175,55,0.5)]"
+            >
+              Shop Now
+              <ArrowRight size={14} />
+            </Link>
+          </motion.div>
+
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 border border-white/30 hover:border-[#d4af37] text-white/75 hover:text-[#d4af37] text-[11px] tracking-[0.3em] uppercase font-light px-10 py-4 transition-all duration-300"
+            >
+              Our Story
+            </Link>
+          </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
+        aria-hidden="true"
       >
-        <span className="text-white/40 text-xs tracking-widest uppercase">Scroll</span>
+        <span className="text-white/30 text-[9px] tracking-[0.4em] uppercase">Scroll</span>
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-          className={`w-px h-10 bg-gradient-to-b from-[#b8960c] to-transparent`}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+          className="w-px h-10 bg-gradient-to-b from-[#d4af37] to-transparent"
         />
       </motion.div>
     </section>

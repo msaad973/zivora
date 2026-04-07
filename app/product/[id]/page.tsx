@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductGrid from "@/components/ProductGrid";
@@ -106,19 +105,6 @@ export default function ProductPage() {
     <div className="flex flex-col min-h-screen bg-white">
       <Navbar />
       <main className="flex-1 pt-20">
-
-        {/* Breadcrumb */}
-        <div className="px-6 md:px-12 max-w-7xl mx-auto py-4">
-          <nav className="flex items-center gap-2 text-xs text-gray-400">
-            <Link href="/" className="hover:text-[#b8960c] transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/shop" className="hover:text-[#b8960c] transition-colors">Shop</Link>
-            <span>/</span>
-            <Link href={`/shop?category=${product.category}`} className="hover:text-[#b8960c] transition-colors">{product.category}</Link>
-            <span>/</span>
-            <span className="text-[#0a0a0a] line-clamp-1">{product.title}</span>
-          </nav>
-        </div>
 
         {/* Main product section */}
         <div className="px-6 md:px-12 max-w-7xl mx-auto pb-16">
